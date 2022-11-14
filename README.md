@@ -134,6 +134,17 @@ subnet 10.33.1.0 netmask 255.255.255.0 {
 	
 Setelah itu, restart sevice dengan perintah `service isc-dhcp-server restart`. Setelah direstart, cek status apakah dhcp server berjalan atau tidak dengan perintah `service isc-dhcp-server status`	
 	
+Selanjutnya edit konfigurasi `/etc/network/interfaces` pada SSS dan Garden. Tambahkan baris berikut di dalamnya :
+
+```
+auto eth0
+iface eth0 inet dhcp
+```		
+
+Selanjutnya testing menggunakan perintah `ip a`, jika berhasil maka hasilnya akan seperti berikut :	
+	
+![NO3](img/no3a.png)	
+	
 ## NO 8
 
 ### SSS, Garden, dan Eden digunakan sebagai client Proxy agar pertukaran informasi dapat terjamin keamanannya, juga untuk mencegah kebocoran data.
