@@ -357,6 +357,42 @@ Seperti pada gambar-gambar di atas, terbukti bahwa pada Weekday 00.00-07.59 dan 
 
 Seperti pada gambar-gambar di atas, terbukti bahwa pada Weekend 00.00-23.59, client bisa mengakses internet kecuali ke domain loid-work.com dan franky-work.com
 
+## NO 11
+
+### Pada Proxy Server di Berlint, Loid berencana untuk mengatur bagaimana Client dapat mengakses internet. Artinya setiap client harus menggunakan Berlint sebagai HTTP & HTTPS proxy. Adapun kriteria pengaturannya adalah sebagai berikut:
+
+<br>
+
+### 3. Saat akses internet dibuka, client dilarang untuk mengakses web tanpa HTTPS. (Contoh web HTTP: http://example.com)
+
+### **Jawab :**
+
+Pada file **/etc/squid/squid.conf** tambahkan konfigurasi seperti berikut:
+
+```
+acl SSL_ports port 443
+
+http_access deny SSL_ports not_available
+http_access deny !SSL_ports available
+http_access deny !SSL_ports weekend_available
+```
+
+Port 443 adalah port HTTPS, jadi selain port tersebut (termasuk HTTP) tidak diizinkan diakses. Pada baris berikutnya berfungsi untuk tidak mengizinkan port HTTPS pada **Weekday 08.00-17.00**. Dua baris selanjutnya berfungsi untuk mengizinkan akses internet HANYA port HTTPS pada saat **Weekday 00.00-07.59 dan Weekday 17.01-23.59** dan **Weekend 00.00-23.59**
+
+Setelah melakukan konfigurasi, restart squid dengan command:
+
+```
+service squid restart
+```
+
+![NO11](img/no11a.png)
+![NO11](img/no11b.png)
+![NO11](img/no11c.png)
+![NO11](img/no11d.png)
+![NO11](img/no11e.png)
+
+Dari gambar-gmbar di atas terbukti bahwa client tidak bisa untuk mengakses web tanpa HTTPS ketika akses internet dibuka.
+
 ## NO 12 & 13
 
 ### Pada Proxy Server di Berlint, Loid berencana untuk mengatur bagaimana Client dapat mengakses internet. Artinya setiap client harus menggunakan Berlint sebagai HTTP & HTTPS proxy. Adapun kriteria pengaturannya adalah sebagai berikut:
