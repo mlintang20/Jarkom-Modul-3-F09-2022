@@ -238,6 +238,54 @@ Selanjutnya testing menggunakan perintah `ip a`, jika berhasil maka hasilnya aka
 ![NO4](img/no4b.png)
 ![NO4](img/no4c.png)
 
+## NO 5
+
+## Client mendapatkan DNS dari WISE dan client dapat terhubung dengan internet melalui DNS tersebut.
+### **Jawab :**
+
+
+kita chek apakah setiap client sudah terhubung dengan internet dengan mencoba meng-ping google.
+
+![client](https://github.com/mlintang20/Jarkom-Modul-3-F09-2022/blob/master/img/no5a.png)
+
+![client](https://github.com/mlintang20/Jarkom-Modul-3-F09-2022/blob/master/img/no5b.png)
+
+![client](https://github.com/mlintang20/Jarkom-Modul-3-F09-2022/blob/master/img/no5c.png)
+
+![client](https://github.com/mlintang20/Jarkom-Modul-3-F09-2022/blob/master/img/no5d.png)
+
+![client](https://github.com/mlintang20/Jarkom-Modul-3-F09-2022/blob/master/img/no5e.png)
+
+## NO 6
+###  Dengan waktu maksimal yang dialokasikan untuk peminjaman alamat IP selama 115 menit.
+### **Jawab :**
+
+
+```
+A slightly different configuration for an internal subnet.
+#subnet 10.5.5.0 netmask 255.255.255.224 {
+#  range 10.5.5.26 10.5.5.30;
+#  option domain-name-servers ns1.internal.example.org;
+#  option domain-name "internal.example.org";
+#  option subnet-mask 255.255.255.224;
+#  option routers 10.5.5.1;
+#  option broadcast-address 10.5.5.31;
+#  default-lease-time 600;
+#  max-lease-time 7200;
+```
+
+## NO 7
+
+### Loid dan Franky berencana menjadikan Eden sebagai server untuk pertukaran informasi dengan alamat IP yang tetap dengan IP [prefix IP].3.13 .
+
+### **Jawab :**
+
+
+setelah dikonfigurasi, kita lakukan pengechekan ip dan didapati ip sesuai dengan ip prefix
+![bukti](https://github.com/mlintang20/Jarkom-Modul-3-F09-2022/blob/master/img/no7.png)
+
+
+
 ## NO 8
 
 ### SSS, Garden, dan Eden digunakan sebagai client Proxy agar pertukaran informasi dapat terjamin keamanannya, juga untuk mencegah kebocoran data.
