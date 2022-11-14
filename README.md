@@ -329,3 +329,54 @@ Seperti pada gambar-gambar di atas, terbukti bahwa pada Weekday 00.00-07.59 dan 
 ![NO9&10](img/weekend_10f.png)
 
 Seperti pada gambar-gambar di atas, terbukti bahwa pada Weekend 00.00-23.59, client bisa mengakses internet kecuali ke domain loid-work.com dan franky-work.com
+
+## NO 12 & 13
+
+### Pada Proxy Server di Berlint, Loid berencana untuk mengatur bagaimana Client dapat mengakses internet. Artinya setiap client harus menggunakan Berlint sebagai HTTP & HTTPS proxy. Adapun kriteria pengaturannya adalah sebagai berikut:
+
+<br>
+
+### 4. Agar menghemat penggunaan, akses internet dibatasi dengan kecepatan maksimum 128 Kbps pada setiap host (Kbps = kilobit per second; lakukan pengecekan pada tiap host, ketika 2 host akses internet pada saat bersamaan, keduanya mendapatkan speed maksimal yaitu 128 Kbps)
+
+### 5. Setelah diterapkan, ternyata peraturan nomor (4) mengganggu produktifitas saat hari kerja, dengan demikian pembatasan kecepatan hanya diberlakukan untuk pengaksesan internet pada hari libur
+
+### **Jawab :**
+
+#### I. Penjelasan
+
+Pembatasan bandwith kepada client dapat dilakukan dengan mengatur konfigurasi pada file **/etc/squid/squid.conf**. Berikut adalah konfigurasinya:
+
+```
+delay_pools 1
+delay_class 1 2
+delay_access 1 allow weekend_available
+delay_parameters 1 none 16000/16000
+delay_access 1 deny all
+```
+
+Setelah melakukan konfigurasi, restart squid
+
+```
+service squid restart
+```
+
+Pada `delay_access` diterapkan 2 aturan yaitu yang pertama `delay_access 1 allow weekend_available` dan yang kedua `delay_access 1 deny all`. Pada aturan pertama artinya adalah membatasi akses hanya pada variabel _weekend_available_ di mana variabel ini di-include dari file **/etc/squid/acl.conf**, yaitu pada **Weekend 00.00-23.59**. Pada aturan kedua artinya adalah tidak membatasi akses internet selain pada aturan pertama. Command `delay_parameters 1 none 16000/16000` menunjukkan bahwa akses internet dibatasi maksimum 128 Kbps pada tiap host.
+
+#### II. Testing
+
+Untuk testing kecepatan internet dapat dilakukan dengan menggunakan **speedtest pada CLI**. Caranya adalah:
+
+- Matikan proxy: `unset http_proxy`
+- Lakukan update `apt-get update` dan install speedtest pada cli `apt install speedtest-cli`
+- Jalankan script `export PYTHONHTTPSVERIFY=0` untuk menonaktifkan verifikasi certificate pada saat menjalankan script Python
+- Eksekusi speed test dengan perintah `speedtest`
+
+![NO12&13](img/no13a.png)
+![NO12&13](img/no13b.png)
+![NO12&13](img/no13c.png)
+
+Pada gambar pertama terbukti bahwa pada **Weekday 00.00-07.59 dan Weekday 17.01-23.59** akses internet client tidak dibatasi.
+
+Pada gambar kedua terbukti bahwa pada **Weekend 00.00-23.59** akses internet client dibatasi.
+
+Pada gambar ketiga terbukti bahwa pada **Weekday 08.00-17.00** client tidak dapat mengakses internet.
