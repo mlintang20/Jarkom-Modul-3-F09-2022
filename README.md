@@ -63,6 +63,30 @@ iface eth0 inet static
 	gateway 192.175.1.1
 ```
 
+Setelah semua node sudah diedit network configurationnya, sekarang kita akan menjadikan WISE sebagai DNS Server dengan cara menginstall bind9.
+	
+```
+apt-get update
+apt-get install bind9 -y
+```
+	
+Kemudian bisa kita ping ke google.com untuk mengecek apakah sudah tersambung ke internet atau belum.
+	
+SS ping google.com WISE
+	
+Selanjutnya, kita buat Westalis menjadi DHCP Server dengan cara install isc-dhcp-server.
+	
+```
+apt-get update
+apt-get install isc-dhcp-server -y
+```
+	
+Kemudian buka file konfigurasi pada `/etc/default/isc-dhcp-server`. Lalu tambahkan baris `INTERFACE="eth0" di dalamnya.
+	
+SS konfigurasi dhcp
+	
+	
+	
 ## NO 8
 
 ### SSS, Garden, dan Eden digunakan sebagai client Proxy agar pertukaran informasi dapat terjamin keamanannya, juga untuk mencegah kebocoran data.
