@@ -143,7 +143,8 @@ iface eth0 inet dhcp
 
 Selanjutnya testing menggunakan perintah `ip a`, jika berhasil maka hasilnya akan seperti berikut :	
 	
-![NO3](img/no3a.png)	
+![NO3](img/no3a.png)
+![NO3](img/no3b.png)
 	
 ## NO 8
 
