@@ -241,8 +241,8 @@ Selanjutnya testing menggunakan perintah `ip a`, jika berhasil maka hasilnya aka
 ## NO 5
 
 ## Client mendapatkan DNS dari WISE dan client dapat terhubung dengan internet melalui DNS tersebut.
-### **Jawab :**
 
+### **Jawab :**
 
 kita chek apakah setiap client sudah terhubung dengan internet dengan mencoba meng-ping google.
 
@@ -257,21 +257,34 @@ kita chek apakah setiap client sudah terhubung dengan internet dengan mencoba me
 ![client](https://github.com/mlintang20/Jarkom-Modul-3-F09-2022/blob/master/img/no5e.png)
 
 ## NO 6
-###  Dengan waktu maksimal yang dialokasikan untuk peminjaman alamat IP selama 115 menit.
+
+### Dengan waktu maksimal yang dialokasikan untuk peminjaman alamat IP selama 115 menit.
+
 ### **Jawab :**
 
-
 ```
-A slightly different configuration for an internal subnet.
-#subnet 10.5.5.0 netmask 255.255.255.224 {
-#  range 10.5.5.26 10.5.5.30;
-#  option domain-name-servers ns1.internal.example.org;
-#  option domain-name "internal.example.org";
-#  option subnet-mask 255.255.255.224;
-#  option routers 10.5.5.1;
-#  option broadcast-address 10.5.5.31;
-#  default-lease-time 600;
-#  max-lease-time 7200;
+subnet 10.33.2.0 netmask 255.255.255.0 {
+}
+
+subnet 10.33.1.0 netmask 255.255.255.0 {
+    range 10.33.1.50 10.33.1.88;
+    range 10.33.1.120 10.33.1.155;
+    option routers 10.33.1.1;
+    option broadcast-address 10.33.1.255;
+    option domain-name-servers 10.33.2.2;
+    default-lease-time 300;
+    max-lease-time 6900;
+}
+
+subnet 10.33.3.0 netmask 255.255.255.0 {
+    range 10.33.3.10 10.33.3.30;
+    range 10.33.3.60 10.33.3.85;
+    option routers 10.33.3.1;
+    option broadcast-address 10.33.3.255;
+    option domain-name-servers 10.33.2.2;
+    default-lease-time 600;
+    max-lease-time 6900;
+}
 ```
 
 ## NO 7
@@ -280,11 +293,8 @@ A slightly different configuration for an internal subnet.
 
 ### **Jawab :**
 
-
 setelah dikonfigurasi, kita lakukan pengechekan ip dan didapati ip sesuai dengan ip prefix
 ![bukti](https://github.com/mlintang20/Jarkom-Modul-3-F09-2022/blob/master/img/no7.png)
-
-
 
 ## NO 8
 
