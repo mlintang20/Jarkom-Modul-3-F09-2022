@@ -39,28 +39,28 @@ iface eth0 inet dhcp
 
 auto eth1
 iface eth1 inet static
-	address 192.175.1.1
+	address 10.33.1.1
 	netmask 255.255.255.0
 
 auto eth2
 	iface eth2 inet static
-	address 192.175.2.1
+	address 10.33.2.1
 	netmask 255.255.255.0
 
 auto eth3
 	iface eth3 inet static
-	address 192.175.3.1
+	address 10.33.3.1
 	netmask 255.255.255.0
 ```
 
-Setelah mengedit network configuration Ostania, selanjutnya tinggal mengedit network configuration node sisanya dengan mengubah script menjadi :
+Setelah mengedit network configuration Ostania, selanjutnya tinggal mengedit network configuration node yang lainnya dengan mengubah script menjadi :
 
 ```
 auto eth0
 iface eth0 inet static
-	address 192.175.1.3
+	address 10.33.1.3
 	netmask 255.255.255.0
-	gateway 192.175.1.1
+	gateway 10.33.1.1
 ```
 
 Setelah semua node sudah diedit network configurationnya, sekarang kita akan menjadikan WISE sebagai DNS Server dengan cara menginstall bind9.
@@ -74,18 +74,65 @@ Kemudian bisa kita ping ke google.com untuk mengecek apakah sudah tersambung ke 
 	
 SS ping google.com WISE
 	
-Selanjutnya, kita buat Westalis menjadi DHCP Server dengan cara install isc-dhcp-server.
+Selanjutnya, kita buat Westalis menjadi DHCP Server dengan cara install ISC-DHCP-SERVER.
 	
 ```
 apt-get update
 apt-get install isc-dhcp-server -y
 ```
 	
-Kemudian buka file konfigurasi pada `/etc/default/isc-dhcp-server`. Lalu tambahkan baris `INTERFACE="eth0" di dalamnya.
+Kemudian edit file konfigurasi pada `/etc/default/isc-dhcp-server`. Lalu tambahkan baris `INTERFACE="eth0"` di dalamnya.
 	
-SS konfigurasi dhcp
+SS konfigurasi dhcp server
 	
+Kemudian bisa di ping ke google.com
 	
+SS ping google.com Westalis
+	
+Selanjutnya adalah menjadikan Berlint sebagai Proxy Server dengan cara menginstall squid.
+
+```
+apt-get update
+apt-get install squid -y
+```
+	
+Kemudian bisa di ping ke google.com
+
+SS ping google.com Berlint
+	
+Terakhir adalah menjadikan Ostania sebagai DHCP Relay dengan cara menginstall ISC-DHCP-RELAY.
+	
+```
+apt-get update
+apt-get install isc-dhcp-relay -y
+```
+	
+Kemudian edit file konfigurasi pada `/etc/default/isc-dhcp-relay`. Lalu tambahkan baris `10.33.2.4` dan `INTERFACES="eth1 eth2 eth3"` di dalamnya, kemudian restart service `service isc-dhcp-relay restart`.
+	
+SS konfigurasi dhcp relay
+		
+	
+## NO 3
+	
+### Client yang melalui Switch1 mendapatkan range IP dari [prefix IP].1.50 - [prefix IP].1.88 dan [prefix IP].1.120 - [prefix IP].1.155.
+	
+### **Jawab :**
+	
+Edit file konfigurasi Westalis pada `/etc/dhcp/dhcpd.conf`. Lalu tambahkan script seperti berikut :
+	
+```
+subnet 10.33.1.0 netmask 255.255.255.0 {
+	range 10.33.1.50 10.33.1.88;
+	range 10.33.1.120 10.33.1.155;
+	option routers 10.33.1.1;
+	option broadcast-address 10.33.1.255;
+	option domain-name-servers 10.33.2.2;
+	default-lease-time 300;
+	max-lease-time 6900;
+}
+```
+	
+Setelah itu, restart sevice dengan perintah `service isc-dhcp-server restart`. Setelah direstart, cek status apakah dhcp server berjalan atau tidak dengan perintah `service isc-dhcp-server status`	
 	
 ## NO 8
 
