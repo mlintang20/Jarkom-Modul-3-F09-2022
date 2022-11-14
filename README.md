@@ -146,6 +146,41 @@ Selanjutnya testing menggunakan perintah `ip a`, jika berhasil maka hasilnya aka
 ![NO3](img/no3a.png)
 ![NO3](img/no3b.png)
 	
+## NO 4
+	
+### Client yang melalui Switch3 mendapatkan range IP dari [prefix IP].3.10 - [prefix IP].3.30 dan [prefix IP].3.60 - [prefix IP].3.85.
+	
+### **Jawab :**	
+	
+Kurang lebih sama seperti nomor 3, Edit file konfigurasi Westalis pada `/etc/dhcp/dhcpd.conf`. Lalu tambahkan script seperti berikut :
+	
+```
+subnet 10.33.1.0 netmask 255.255.255.0 {
+	range 10.33.3.10 10.33.3.30;
+	range 10.33.3.50 10.33.3.85;
+	option routers 10.33.3.1;
+	option broadcast-address 10.33.3.255;
+	option domain-name-servers 10.33.2.2;
+	default-lease-time 600;
+	max-lease-time 6900;
+}
+```	
+	
+Setelah itu, restart sevice dengan perintah `service isc-dhcp-server restart`. Setelah direstart, cek status apakah dhcp server berjalan atau tidak dengan perintah `service isc-dhcp-server status`
+	
+Selanjutnya edit konfigurasi `/etc/network/interfaces` pada Eden, NewstonCastle, dan KemonoPark. Tambahkan baris berikut di dalamnya :
+
+```
+auto eth0
+iface eth0 inet dhcp
+```		
+	
+Selanjutnya testing menggunakan perintah `ip a`, jika berhasil maka hasilnya akan seperti berikut :	
+	
+![NO4](img/no4a.png)
+![NO4](img/no4b.png)
+![NO4](img/no4c.png)	
+	
 ## NO 8
 
 ### SSS, Garden, dan Eden digunakan sebagai client Proxy agar pertukaran informasi dapat terjamin keamanannya, juga untuk mencegah kebocoran data.
