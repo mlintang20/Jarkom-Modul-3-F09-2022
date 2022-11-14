@@ -501,3 +501,9 @@ Pada gambar pertama terbukti bahwa pada **Weekday 00.00-07.59 dan Weekday 17.01-
 Pada gambar kedua terbukti bahwa pada **Weekend 00.00-23.59** akses internet client dibatasi.
 
 Pada gambar ketiga terbukti bahwa pada **Weekday 08.00-17.00** client tidak dapat mengakses internet.
+
+## Kendala yang Dialami
+
+- Tidak bisa ping karena belum menggunakan forwarder
+- Pada awalnya tidak tahu apa itu DHCP Relay
+- Kesusahan di No 11 (Proxy No 3)
