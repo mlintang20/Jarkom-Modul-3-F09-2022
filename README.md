@@ -278,6 +278,8 @@ env | grep -i proxy
 
 ### **Jawab :**
 
+#### I. Penjelasan
+
 Sesuai aturan, client tidak bisa mengakses internet pada Weekday 08.00-17.00. Mereka hanya bisa mengakses internet pada Weekday 00.00-07.59, Weekday 17.01-23.59, dan Weekend 00.00-23.59. Sala satu cara yang dapat dilakukan untuk mengetes hal ini adalah dengan lynx ke google.com: `lynx google.com`.
 
 Kemudian, pada Weekday 08.00-17.00 mereka hanya bisa mengakses domain loid-work.com dan franky-work.com , dan pada waktu selain itu domain loid-work.com dan franky-work.com tidak bisa diakses.
@@ -296,6 +298,8 @@ date -s "14 NOV 2022 20:00:00"
 date -s "19 NOV 2022 10:00:00"
 ```
 
+#### II. Testing Weekday 08.00-17.00
+
 ![NO9&10](img/weekday_10a.png)
 ![NO9&10](img/weekday_10b.png)
 ![NO9&10](img/weekday_10c.png)
@@ -303,3 +307,25 @@ date -s "19 NOV 2022 10:00:00"
 ![NO9&10](img/weekday_10e.png)
 
 Seperti pada gambar-gambar di atas, terbukti bahwa pada Weekday 08.00-17.00, client tidak bisa mengakses internet kecuali ke domain loid-work.com dan franky-work.com
+
+#### III. Testing Weekday 00.00-07.59 dan Weekday 17.01-23.59
+
+![NO9&10](img/weekday_20a.png)
+![NO9&10](img/weekday_20b.png)
+![NO9&10](img/weekday_20c.png)
+![NO9&10](img/weekday_20d.png)
+![NO9&10](img/weekday_20e.png)
+![NO9&10](img/weekday_20f.png)
+
+Seperti pada gambar-gambar di atas, terbukti bahwa pada Weekday 00.00-07.59 dan Weekday 17.01-23.59, client bisa mengakses internet kecuali ke domain loid-work.com dan franky-work.com
+
+#### IV. Testing Weekend 00.00-23.59
+
+![NO9&10](img/weekend_10a.png)
+![NO9&10](img/weekend_10b.png)
+![NO9&10](img/weekend_10c.png)
+![NO9&10](img/weekend_10d.png)
+![NO9&10](img/weekend_10e.png)
+![NO9&10](img/weekend_10f.png)
+
+Seperti pada gambar-gambar di atas, terbukti bahwa pada Weekend 00.00-23.59, client bisa mengakses internet kecuali ke domain loid-work.com dan franky-work.com
