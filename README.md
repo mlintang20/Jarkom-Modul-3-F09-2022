@@ -4,8 +4,8 @@
 
 <table>
     <tr>
+	    <th>Nama</th>
         <th>NRP</th>
-	<th>Nama</th>
     </tr>
     <tr>
         <td>Muhammad Lintang Panjerino</td>
@@ -297,7 +297,7 @@ Setelah itu, file tersebut dapat disertakan pada file konfigurasi utama, file **
 
 Kemudian untuk aturan mengenai akses ke domain loid-work.com dan franky-work.com dapat dimasukkan ke file **/etc/squid/allow-sites.acl** yang isinya adalah kedua domain tersebut.
 
-Setelah kedua file pendukung terisi, maka dilakukan konfigurasi pada file **include /etc/squid/acl.conf**. Berikut adalah konfigurasinya:
+Setelah kedua file pendukung terisi, maka dilakukan konfigurasi pada file **include /etc/squid/squid.conf**. Berikut adalah konfigurasinya:
 
 ```
 acl WHITELISTS dstdomain "/etc/squid/allow-sites.acl"
