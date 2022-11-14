@@ -280,9 +280,36 @@ env | grep -i proxy
 
 #### I. Penjelasan
 
-Sesuai aturan, client tidak bisa mengakses internet pada Weekday 08.00-17.00. Mereka hanya bisa mengakses internet pada Weekday 00.00-07.59, Weekday 17.01-23.59, dan Weekend 00.00-23.59. Sala satu cara yang dapat dilakukan untuk mengetes hal ini adalah dengan lynx ke google.com: `lynx google.com`.
+Sesuai aturan, client tidak bisa mengakses internet pada Weekday 08.00-17.00. Mereka hanya bisa mengakses internet pada Weekday 00.00-07.59, Weekday 17.01-23.59, dan Weekend 00.00-23.59. Salah satu cara yang dapat dilakukan untuk mengetes hal ini adalah dengan lynx ke google.com: `lynx google.com`.
 
 Kemudian, pada Weekday 08.00-17.00 mereka hanya bisa mengakses domain loid-work.com dan franky-work.com , dan pada waktu selain itu domain loid-work.com dan franky-work.com tidak bisa diakses.
+
+Pembatasan waktu akses internet pada client Proxy dapat dilakukan dengan membuat beberapa variabel waktu pada file **/etc/squid/acl.conf**. Berikut adalah isinya:
+
+```
+acl available time MTWHF 00:00-07:59
+acl available time MTWHF 17:01-23:59
+acl weekend_available time AS 00:00-23:59
+acl not_available time MTWHF 08:00-17:00
+```
+
+Setelah itu, file tersebut dapat disertakan pada file konfigurasi utama, file **/etc/squid/squid.conf** : `include /etc/squid/acl.conf`.
+
+Kemudian untuk aturan mengenai akses ke domain loid-work.com dan franky-work.com dapat dimasukkan ke file **/etc/squid/allow-sites.acl** yang isinya adalah kedua domain tersebut.
+
+Setelah kedua file pendukung terisi, maka dilakukan konfigurasi pada file **include /etc/squid/acl.conf**. Berikut adalah konfigurasinya:
+
+```
+acl WHITELISTS dstdomain "/etc/squid/allow-sites.acl"
+http_access allow WHITELISTS not_available
+http_access deny WHITELISTS available
+http_access deny WHITELISTS weekend_available
+http_access allow available
+http_access allow weekend_available
+http_access deny all
+```
+
+Pada konfigurasi di atas dibuat variabel `WHITELISTS` yang merupakan domain yang diizinkan (domain loid-work.com dan franky-work.com). Kedua domain dapat diakses/diizinkan diakses pada waktu `not_available`, tidak dapat diakses pada waktu `available`, dan tidak dapat diakses pada waktu `weekend_available`. Kemudian internet dapat diakses pada waktu `available` dan `weekend_available`. Selain waktu-waktu tersebut, internet tidak dapat diakses (_deny_).
 
 Pada saat testing, untuk mengatur waktu dapat dengan menggunakan command _date -s_ seperti berikut:
 
@@ -354,7 +381,7 @@ delay_parameters 1 none 16000/16000
 delay_access 1 deny all
 ```
 
-Setelah melakukan konfigurasi, restart squid
+Setelah melakukan konfigurasi, restart squid dengan command:
 
 ```
 service squid restart
