@@ -21,6 +21,48 @@
     </tr>
 <table>
 
+## NO 1 & 2
+
+### Loid bersama Franky berencana membuat peta tersebut dengan kriteria WISE sebagai DNS Server, Westalis sebagai DHCP Server, Berlint sebagai Proxy Server, dan Ostania sebagai DHCP Relay
+
+### **Jawab :**
+
+Pertama kita membuat topologi seperti pada soal :
+
+SS Topologi
+
+Kemudian, edit network configuration Ostania dengan mengubah script menjadi :
+
+```
+auto eth0
+iface eth0 inet dhcp
+
+auto eth1
+iface eth1 inet static
+	address 192.175.1.1
+	netmask 255.255.255.0
+
+auto eth2
+	iface eth2 inet static
+	address 192.175.2.1
+	netmask 255.255.255.0
+
+auto eth3
+	iface eth3 inet static
+	address 192.175.3.1
+	netmask 255.255.255.0
+```
+
+Setelah mengedit network configuration Ostania, selanjutnya tinggal mengedit network configuration node sisanya dengan mengubah script menjadi :
+
+```
+auto eth0
+iface eth0 inet static
+	address 192.175.1.3
+	netmask 255.255.255.0
+	gateway 192.175.1.1
+```
+
 ## NO 8
 
 ### SSS, Garden, dan Eden digunakan sebagai client Proxy agar pertukaran informasi dapat terjamin keamanannya, juga untuk mencegah kebocoran data.
