@@ -29,7 +29,7 @@
 
 Pertama kita membuat topologi seperti pada soal :
 
-SS Topologi
+![NO1](img/no1a.png)
 
 Kemudian, edit network configuration Ostania dengan mengubah script menjadi :
 
@@ -145,11 +145,7 @@ apt-get update
 apt-get install isc-dhcp-server -y
 ```
 	
-Kemudian edit file konfigurasi pada `/etc/default/isc-dhcp-server`. Lalu tambahkan baris `INTERFACE="eth0"` di dalamnya.
-	
-SS konfigurasi dhcp server
-	
-Kemudian bisa di ping ke google.com
+Kemudian edit file konfigurasi pada `/etc/default/isc-dhcp-server`. Lalu tambahkan baris `INTERFACE="eth0"` di dalamnya. Kemudian bisa di ping ke google.com
 	
 SS ping google.com Westalis
 	
