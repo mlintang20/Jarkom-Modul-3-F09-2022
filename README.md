@@ -55,14 +55,78 @@ auto eth3
 
 Setelah mengedit network configuration Ostania, selanjutnya tinggal mengedit network configuration node yang lainnya dengan mengubah script menjadi :
 
+WISE	
+```
+auto eth0
+iface eth0 inet static
+	address 10.33.2.2
+	netmask 255.255.255.0
+	gateway 10.33.2.1
+```
+
+Berlint	
+```
+auto eth0
+iface eth0 inet static
+	address 10.33.2.3
+	netmask 255.255.255.0
+	gateway 10.33.2.1
+```
+
+Westalis	
+```
+auto eth0
+iface eth0 inet static
+	address 10.33.2.4
+	netmask 255.255.255.0
+	gateway 10.33.2.1
+```	
+
+Eden	
+```
+auto eth0
+iface eth0 inet static
+	address 10.33.3.2
+	netmask 255.255.255.0
+	gateway 10.33.3.1
+```	
+
+NewstonCastle	
+```
+auto eth0
+iface eth0 inet static
+	address 10.33.3.3
+	netmask 255.255.255.0
+	gateway 10.33.3.1
+```	
+
+KemonoPark	
+```
+auto eth0
+iface eth0 inet static
+	address 10.33.3.4
+	netmask 255.255.255.0
+	gateway 10.33.3.1
+```	
+
+SSS	
+```
+auto eth0
+iface eth0 inet static
+	address 10.33.1.2
+	netmask 255.255.255.0
+	gateway 10.33.1.1
+```	
+
+Garden	
 ```
 auto eth0
 iface eth0 inet static
 	address 10.33.1.3
 	netmask 255.255.255.0
 	gateway 10.33.1.1
-```
-
+```	
+	
 Setelah semua node sudah diedit network configurationnya, sekarang kita akan menjadikan WISE sebagai DNS Server dengan cara menginstall bind9.
 	
 ```
