@@ -136,7 +136,7 @@ apt-get install bind9 -y
 	
 Kemudian bisa kita ping ke google.com untuk mengecek apakah sudah tersambung ke internet atau belum.
 	
-SS ping google.com WISE
+![NO1](img/no1b.png)
 	
 Selanjutnya, kita buat Westalis menjadi DHCP Server dengan cara install ISC-DHCP-SERVER.
 	
@@ -147,7 +147,7 @@ apt-get install isc-dhcp-server -y
 	
 Kemudian edit file konfigurasi pada `/etc/default/isc-dhcp-server`. Lalu tambahkan baris `INTERFACE="eth0"` di dalamnya. Kemudian bisa di ping ke google.com
 	
-SS ping google.com Westalis
+![NO1](img/no1c.png)
 	
 Selanjutnya adalah menjadikan Berlint sebagai Proxy Server dengan cara menginstall squid.
 
@@ -158,7 +158,7 @@ apt-get install squid -y
 	
 Kemudian bisa di ping ke google.com
 
-SS ping google.com Berlint
+![NO1](img/no1d.png)
 	
 Terakhir adalah menjadikan Ostania sebagai DHCP Relay dengan cara menginstall ISC-DHCP-RELAY.
 	
@@ -169,7 +169,7 @@ apt-get install isc-dhcp-relay -y
 	
 Kemudian edit file konfigurasi pada `/etc/default/isc-dhcp-relay`. Lalu tambahkan baris `10.33.2.4` dan `INTERFACES="eth1 eth2 eth3"` di dalamnya, kemudian restart service `service isc-dhcp-relay restart`.
 	
-SS konfigurasi dhcp relay
+![NO1](img/no1e.png)
 		
 	
 ## NO 3
